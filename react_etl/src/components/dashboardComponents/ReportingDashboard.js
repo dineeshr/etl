@@ -152,14 +152,27 @@ function ReportingDashboard() {
           <div className="col-md-3 mb-3">
             <button
               type="button"
-              className="btn btn-info btn-block w-100 py-2"
-              onClick={handlePieChartShow}
+              className="btn btn-warning btn-block w-100 py-2"
+              onClick={handleChangeEmail}
             >
-              Show Pie Chart
+              Change Receiver's Mail
             </button>
           </div>
         </div>
       </form>
+
+      {/* Show Pie Chart Button on the next line */}
+      <div className="row">
+        <div className="col-md-3 mb-3">
+          <button
+            type="button"
+            className="btn btn-info btn-block w-100 py-2"
+            onClick={handlePieChartShow}
+          >
+            Show Pie Chart
+          </button>
+        </div>
+      </div>
 
       {/* Display Filtered Data */}
       <h2 className="mb-4">Filtered Results:</h2>
