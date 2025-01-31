@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom'; 
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Button, Modal } from 'react-bootstrap';
+
+// Register chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function ReportingDashboard() {
   const [env, setEnv] = useState('');
   const [application, setApplication] = useState('');
   const [initState, setinitState] = useState('');
   const [reports, setReports] = useState([]);
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const [filteredReports, setFilteredReports] = useState([]);
+  const [showPieChart, setShowPieChart] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchReports();
@@ -17,6 +25,7 @@ function ReportingDashboard() {
     try {
       const response = await axios.get('http://localhost:8080/reports');
       setReports(response.data);
+      setFilteredReports(response.data); // Initially set filtered reports to all reports
     } catch (error) {
       console.error('Error fetching reports:', error);
     }
@@ -29,10 +38,10 @@ function ReportingDashboard() {
         params: {
           env: env,
           application: application,
-          initState: initState
-        }
+          initState: initState,
+        },
       });
-      setReports(response.data);
+      setFilteredReports(response.data); // Set filtered data to state
     } catch (error) {
       console.error('Error fetching filtered reports:', error);
     }
@@ -42,12 +51,36 @@ function ReportingDashboard() {
     setEnv('');
     setApplication('');
     setinitState('');
-    fetchReports();
+    setFilteredReports(reports); // Reset the filtered reports to all reports when the filter is cleared
   };
 
-  // Use navigate to move to the /assign-email route
   const handleChangeEmail = () => {
-    navigate('/assign-email'); // Navigate to the email form page
+    navigate('/assign-email');
+  };
+
+  const handlePieChartClose = () => {
+    setShowPieChart(false);  // Close the Pie Chart Modal
+  };
+
+  const handlePieChartShow = () => {
+    setShowPieChart(true);   // Show the Pie Chart Modal
+  };
+
+  // Get the pie chart data for the selected filtered reports
+  const getPieChartData = (data) => {
+    const successCount = data.filter((report) => report.initState === 'SUCCESS').length;
+    const failureCount = data.filter((report) => report.initState === 'FAILED').length;
+
+    return {
+      labels: ['SUCCESS', 'FAILED'],
+      datasets: [
+        {
+          data: [successCount, failureCount],
+          backgroundColor: ['#36A2EB', '#FF6384'],
+          hoverBackgroundColor: ['#36A2EB', '#FF6384'],
+        },
+      ],
+    };
   };
 
   return (
@@ -119,10 +152,10 @@ function ReportingDashboard() {
           <div className="col-md-3 mb-3">
             <button
               type="button"
-              className="btn btn-warning btn-block w-100 py-2"
-              onClick={handleChangeEmail} // Trigger navigation when clicked
+              className="btn btn-info btn-block w-100 py-2"
+              onClick={handlePieChartShow}
             >
-              Change Receiver's Mail
+              Show Pie Chart
             </button>
           </div>
         </div>
@@ -130,8 +163,8 @@ function ReportingDashboard() {
 
       {/* Display Filtered Data */}
       <h2 className="mb-4">Filtered Results:</h2>
-      <div className="table-responsive">
-        <table className="table table-striped table-bordered">
+      <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
+        <table className="table table-striped table-bordered w-100">
           <thead className="table-dark">
             <tr>
               <th>Id</th>
@@ -150,7 +183,7 @@ function ReportingDashboard() {
             </tr>
           </thead>
           <tbody>
-            {reports.map((report) => (
+            {filteredReports.map((report) => (
               <tr key={report.id}>
                 <td>{report.id}</td>
                 <td>{report.application}</td>
@@ -170,6 +203,16 @@ function ReportingDashboard() {
           </tbody>
         </table>
       </div>
+
+      {/* Pie Chart Modal */}
+      <Modal show={showPieChart} onHide={handlePieChartClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Pie Chart</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Pie data={getPieChartData(filteredReports)} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
