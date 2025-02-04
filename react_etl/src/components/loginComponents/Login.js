@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';  // Import Axios for API calls
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    
-    // Simulate login process (replace with real authentication logic)
-    if (username === 'admin' && password === 'admin') {
-      alert('Login successful');
-      localStorage.setItem('isAuthenticated', 'true'); // Store authentication status
-      navigate('/'); // Redirect to ReportingDashboard
-    } else {
-      alert('Invalid credentials');
+
+    try {
+      // Send a POST request to the backend API
+      const response = await axios.post('http://localhost:8080/api/auth/login', {
+        username,
+        password
+      });
+
+      if (response.data) {
+        // If authentication is successful, store authentication status and redirect
+        alert('Login successful');
+        localStorage.setItem('isAuthenticated', 'true'); // Store authentication status
+        navigate('/'); // Redirect to the ReportingDashboard
+      } else {
+        alert('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
+      alert('An error occurred while logging in');
     }
   };
 
