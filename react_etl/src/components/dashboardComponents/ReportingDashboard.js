@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function ReportingDashboard() {
   const [env, setEnv] = useState('');
   const [application, setApplication] = useState('');
-  const [initState, setinitState] = useState('');
+  const [initState, setInitState] = useState('');
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [showPieChart, setShowPieChart] = useState(false);
@@ -50,7 +50,7 @@ function ReportingDashboard() {
   const handleReset = () => {
     setEnv('');
     setApplication('');
-    setinitState('');
+    setInitState('');
     setFilteredReports(reports); // Reset the filtered reports to all reports when the filter is cleared
   };
 
@@ -83,9 +83,25 @@ function ReportingDashboard() {
     };
   };
 
+  const handleLogout = () => {
+    // Clear authentication status from localStorage
+    localStorage.removeItem('isAuthenticated');
+    // Redirect to login page after logout
+    navigate('/login');
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Reporting Dashboard</h1>
+
+      {/* Logout Button */}
+      <div className="row mb-4">
+        <div className="col-md-12 text-end">
+          <button className="btn btn-danger" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
 
       {/* Filter Form */}
       <form onSubmit={handleSubmit} className="mb-4">
@@ -129,7 +145,7 @@ function ReportingDashboard() {
               name="initState"
               className="form-control"
               value={initState}
-              onChange={(e) => setinitState(e.target.value)}
+              onChange={(e) => setInitState(e.target.value)}
             >
               <option value="">Select Status</option>
               <option value="SUCCESS">SUCCESS</option>
