@@ -187,12 +187,6 @@ function ReportingDashboard() {
               <th>Initial Status</th>
               <th>Created Date</th>
               <th>Prev Date</th>
-              <th>Email Sent Status</th>
-              <th>Current State</th>
-              <th>Handled By</th>
-              <th>Reason</th>
-              <th>Fix Method</th>
-              <th>Solved Date</th>
             </tr>
           </thead>
           <tbody>
@@ -205,12 +199,6 @@ function ReportingDashboard() {
                 <td>{report.initState}</td>
                 <td>{report.createdDt}</td>
                 <td>{report.prev}</td>
-                <td>{report.emailSent}</td>
-                <td>{report.currentState}</td>
-                <td>{report.handleBy}</td>
-                <td>{report.failReason}</td>
-                <td>{report.fixMethod}</td>
-                <td>{report.solvedDt}</td>
               </tr>
             ))}
           </tbody>
