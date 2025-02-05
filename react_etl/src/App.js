@@ -19,10 +19,6 @@ function App() {
           element={<PrivateRoute element={<ReportingDashboard />} />} 
         /> {/* Dashboard route */}
 
-        <Route 
-          path="/assign-email" 
-          element={<PrivateRoute element={<AssignEmail />} />} 
-        /> {/* Email form route */}
       </Routes>
     </Router>
   );
