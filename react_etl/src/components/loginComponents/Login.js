@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';  // Import Axios for API calls
+import axios from 'axios';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -11,22 +11,23 @@ function Login() {
     e.preventDefault();
 
     try {
-      // Send a POST request to the backend API
+      // Send a POST request to the backend API with both username and password
       const response = await axios.post('http://localhost:8080/api/auth/login', {
         username,
         password
       });
 
+      // Check if the response contains employee data, including empDesignation
       if (response.data) {
-        // If authentication is successful, store authentication status and redirect
         alert('Login successful');
         localStorage.setItem('isAuthenticated', 'true'); // Store authentication status
+        localStorage.setItem('empDesignation', response.data.empDesignation); // Store designation
         navigate('/'); // Redirect to the ReportingDashboard
       } else {
         alert('Invalid credentials');
       }
     } catch (error) {
-      console.error('Error during authentication:', error);
+      console.error('Error during authentication:', error.response ? error.response.data : error);
       alert('An error occurred while logging in');
     }
   };

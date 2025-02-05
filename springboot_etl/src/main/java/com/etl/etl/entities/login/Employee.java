@@ -28,6 +28,9 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "emp_designation")  // New column added
+    private String empDesignation;    // Assuming a VARCHAR field
+
     // Getters and Setters
     public Long getEmpId() {
         return empId;
@@ -75,5 +78,13 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmpDesignation() {
+        return empDesignation;
+    }
+
+    public void setEmpDesignation(String empDesignation) {
+        this.empDesignation = empDesignation;
     }
 }

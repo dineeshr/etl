@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Button, Modal } from 'react-bootstrap';
@@ -16,6 +16,7 @@ function ReportingDashboard() {
   const [filteredReports, setFilteredReports] = useState([]);
   const [showPieChart, setShowPieChart] = useState(false);
   const navigate = useNavigate();
+  const [empDesignation, setEmpDesignation] = useState(localStorage.getItem('empDesignation'));
 
   useEffect(() => {
     fetchReports();
@@ -54,7 +55,6 @@ function ReportingDashboard() {
     setFilteredReports(reports); // Reset the filtered reports to all reports when the filter is cleared
   };
 
-
   const handlePieChartClose = () => {
     setShowPieChart(false);  // Close the Pie Chart Modal
   };
@@ -63,7 +63,6 @@ function ReportingDashboard() {
     setShowPieChart(true);   // Show the Pie Chart Modal
   };
 
-  // Get the pie chart data for the selected filtered reports
   const getPieChartData = (data) => {
     const successCount = data.filter((report) => report.initState === 'SUCCESS').length;
     const failureCount = data.filter((report) => report.initState === 'FAILED').length;
@@ -83,6 +82,7 @@ function ReportingDashboard() {
   const handleLogout = () => {
     // Clear authentication status from localStorage
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('empDesignation');
     // Redirect to login page after logout
     navigate('/login');
   };
@@ -100,80 +100,90 @@ function ReportingDashboard() {
         </div>
       </div>
 
+      {/* Settings Button (only if admin) */}
+      {empDesignation === 'admin' && (
+        <div className="row mb-4">
+          <div className="col-md-12 text-end">
+            <button className="btn btn-secondary">
+              Settings
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Filter Form */}
-     {/* Filter Form */}
-<form onSubmit={handleSubmit} className="mb-4">
-  <div className="row mb-3">
-    <div className="col-md-3 mb-3">
-      <label htmlFor="env" className="form-label">Environment</label>
-      <select
-        id="env"
-        name="env"
-        className="form-control"
-        value={env}
-        onChange={(e) => setEnv(e.target.value)}
-      >
-        <option value="">Select Environment</option>
-        <option value="EU">EU</option>
-        <option value="US1">US1</option>
-        <option value="US2">US2</option>
-      </select>
-    </div>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <div className="row mb-3">
+          <div className="col-md-3 mb-3">
+            <label htmlFor="env" className="form-label">Environment</label>
+            <select
+              id="env"
+              name="env"
+              className="form-control"
+              value={env}
+              onChange={(e) => setEnv(e.target.value)}
+            >
+              <option value="">Select Environment</option>
+              <option value="EU">EU</option>
+              <option value="US1">US1</option>
+              <option value="US2">US2</option>
+            </select>
+          </div>
 
-    <div className="col-md-3 mb-3">
-      <label htmlFor="application" className="form-label">Application</label>
-      <select
-        id="application"
-        name="application"
-        className="form-control"
-        value={application}
-        onChange={(e) => setApplication(e.target.value)}
-      >
-        <option value="">Select Application</option>
-        <option value="CREDIT">CREDIT</option>
-        <option value="EQUITY">EQUITY</option>
-        <option value="MONITORING">MONITORING</option>
-      </select>
-    </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="application" className="form-label">Application</label>
+            <select
+              id="application"
+              name="application"
+              className="form-control"
+              value={application}
+              onChange={(e) => setApplication(e.target.value)}
+            >
+              <option value="">Select Application</option>
+              <option value="CREDIT">CREDIT</option>
+              <option value="EQUITY">EQUITY</option>
+              <option value="MONITORING">MONITORING</option>
+            </select>
+          </div>
 
-    <div className="col-md-3 mb-3">
-      <label htmlFor="initState" className="form-label">Status</label>
-      <select
-        id="initState"
-        name="initState"
-        className="form-control"
-        value={initState}
-        onChange={(e) => setInitState(e.target.value)}
-      >
-        <option value="">Select Status</option>
-        <option value="SUCCESS">SUCCESS</option>
-        <option value="FAILED">FAILED</option>
-      </select>
-    </div>
-  </div>
+          <div className="col-md-3 mb-3">
+            <label htmlFor="initState" className="form-label">Status</label>
+            <select
+              id="initState"
+              name="initState"
+              className="form-control"
+              value={initState}
+              onChange={(e) => setInitState(e.target.value)}
+            >
+              <option value="">Select Status</option>
+              <option value="SUCCESS">SUCCESS</option>
+              <option value="FAILED">FAILED</option>
+            </select>
+          </div>
+        </div>
 
-  <div className="row">
-    <div className="col-md-3 mb-3">
-      <button type="submit" className="btn btn-primary btn-block w-100 py-2">
-        Filter
-      </button>
-    </div>
-    <div className="col-md-3 mb-3">
-      <button type="button" className="btn btn-secondary btn-block w-100 py-2" onClick={handleReset}>
-        Clear
-      </button>
-    </div>
-    <div className="col-md-3 mb-3">
-      <button
-        type="button"
-        className="btn btn-info btn-block w-100 py-2"
-        onClick={handlePieChartShow}
-      >
-        Show Pie Chart
-      </button>
-    </div>
-  </div>
-</form>
+        <div className="row">
+          <div className="col-md-3 mb-3">
+            <button type="submit" className="btn btn-primary btn-block w-100 py-2">
+              Filter
+            </button>
+          </div>
+          <div className="col-md-3 mb-3">
+            <button type="button" className="btn btn-secondary btn-block w-100 py-2" onClick={handleReset}>
+              Clear
+            </button>
+          </div>
+          <div className="col-md-3 mb-3">
+            <button
+              type="button"
+              className="btn btn-info btn-block w-100 py-2"
+              onClick={handlePieChartShow}
+            >
+              Show Pie Chart
+            </button>
+          </div>
+        </div>
+      </form>
 
       {/* Display Filtered Data */}
       <h2 className="mb-4">Filtered Results:</h2>
