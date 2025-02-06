@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Offcanvas } from 'react-bootstrap';
 
 // Register chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,6 +15,7 @@ function ReportingDashboard() {
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [showPieChart, setShowPieChart] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false); // State to toggle drawer visibility
   const navigate = useNavigate();
   const [empDesignation, setEmpDesignation] = useState(localStorage.getItem('empDesignation'));
 
@@ -87,29 +88,43 @@ function ReportingDashboard() {
     navigate('/login');
   };
 
+  const handleSettingsClick = () => {
+    navigate('/settings');  // Redirect to settings page
+    setShowDrawer(false); // Close the drawer when navigating
+  };
+
+  const handleDrawerToggle = () => {
+    setShowDrawer(!showDrawer); // Toggle the drawer visibility
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Reporting Dashboard</h1>
 
-      {/* Logout Button */}
-      <div className="row mb-4">
-        <div className="col-md-12 text-end">
-          <button className="btn btn-danger" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
-      </div>
+      {/* Button to toggle the drawer */}
+      <Button variant="primary" onClick={handleDrawerToggle} className="mb-4">
+        Open Menu
+      </Button>
 
-      {/* Settings Button (only if admin) */}
-      {empDesignation === 'admin' && (
-        <div className="row mb-4">
-          <div className="col-md-12 text-end">
-            <button className="btn btn-secondary">
+      {/* Drawer (Offcanvas component) */}
+      <Offcanvas show={showDrawer} onHide={handleDrawerToggle} placement="end">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          {/* Settings Button (only if admin) */}
+          {empDesignation === 'admin' && (
+            <Button variant="secondary" className="mb-2 w-100" onClick={handleSettingsClick}>
               Settings
-            </button>
-          </div>
-        </div>
-      )}
+            </Button>
+          )}
+
+          {/* Logout Button */}
+          <Button variant="danger" className="w-100" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Offcanvas.Body>
+      </Offcanvas>
 
       {/* Filter Form */}
       <form onSubmit={handleSubmit} className="mb-4">
@@ -147,7 +162,7 @@ function ReportingDashboard() {
           </div>
 
           <div className="col-md-3 mb-3">
-            <label htmlFor="initState" className="form-label">Status</label>
+            <label htmlFor="initState" className="form-label">Initial State</label>
             <select
               id="initState"
               name="initState"
@@ -155,41 +170,45 @@ function ReportingDashboard() {
               value={initState}
               onChange={(e) => setInitState(e.target.value)}
             >
-              <option value="">Select Status</option>
+              <option value="">Select Initial State</option>
               <option value="SUCCESS">SUCCESS</option>
               <option value="FAILED">FAILED</option>
             </select>
           </div>
         </div>
 
+        {/* Buttons Row */}
         <div className="row">
-          <div className="col-md-3 mb-3">
-            <button type="submit" className="btn btn-primary btn-block w-100 py-2">
-              Filter
+          <div className="col-md-3">
+            <button type="submit" className="btn btn-primary w-100">Filter</button>
+          </div>
+          <div className="col-md-3">
+            <button type="button" className="btn btn-secondary w-100 ms-2" onClick={handleReset}>
+              Reset
             </button>
           </div>
-          <div className="col-md-3 mb-3">
-            <button type="button" className="btn btn-secondary btn-block w-100 py-2" onClick={handleReset}>
-              Clear
-            </button>
-          </div>
-          <div className="col-md-3 mb-3">
-            <button
-              type="button"
-              className="btn btn-info btn-block w-100 py-2"
-              onClick={handlePieChartShow}
-            >
+          <div className="col-md-3">
+            <Button variant="info" className="w-100" onClick={handlePieChartShow}>
               Show Pie Chart
-            </button>
+            </Button>
           </div>
         </div>
       </form>
 
-      {/* Display Filtered Data */}
-      <h2 className="mb-4">Filtered Results:</h2>
-      <div className="table-responsive" style={{ overflowX: 'auto', width: '100%' }}>
-        <table className="table table-striped table-bordered w-100">
-          <thead className="table-dark">
+      {/* Pie Chart Modal */}
+      <Modal show={showPieChart} onHide={handlePieChartClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Report Success/Failure</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Pie data={getPieChartData(filteredReports)} />
+        </Modal.Body>
+      </Modal>
+
+      {/* Report Table */}
+      <div className="table-responsive">
+        <table className="table table-bordered">
+          <thead>
             <tr>
               <th>Id</th>
               <th>Application</th>
@@ -202,7 +221,7 @@ function ReportingDashboard() {
           </thead>
           <tbody>
             {filteredReports.map((report) => (
-              <tr key={report.id}>
+              <tr key={report.reportId}>
                 <td>{report.id}</td>
                 <td>{report.application}</td>
                 <td>{report.env}</td>
@@ -215,16 +234,6 @@ function ReportingDashboard() {
           </tbody>
         </table>
       </div>
-
-      {/* Pie Chart Modal */}
-      <Modal show={showPieChart} onHide={handlePieChartClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Pie Chart</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Pie data={getPieChartData(filteredReports)} />
-        </Modal.Body>
-      </Modal>
     </div>
   );
 }

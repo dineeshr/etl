@@ -2,6 +2,8 @@ package com.etl.etl.entities.login;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,6 +12,7 @@ import jakarta.persistence.Table;
 public class Employee {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")  // Assuming there is an 'emp_id' as the primary key in the table.
     private Long empId;
 
@@ -22,7 +25,7 @@ public class Employee {
     @Column(name = "emp_mobileNumber")
     private String empMobileNumber;
 
-    @Column(name = "username")
+    @Column(name = "username",unique = true)
     private String username;
 
     @Column(name = "password")
