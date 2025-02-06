@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Button, Modal, Form, Table } from 'react-bootstrap';
 import axios from 'axios';
+import Drawer from '../Drawer/Drawer'; // Assuming your Drawer component is in the same directory
+import { useNavigate } from 'react-router-dom';
 
 const SettingsPage = () => {
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
@@ -12,6 +14,23 @@ const SettingsPage = () => {
     username: '',
     password: '',
   });
+  const [employees, setEmployees] = useState([]);
+  const [showDrawer, setShowDrawer] = useState(false); // Drawer visibility state
+  const navigate = useNavigate();
+
+  // Fetch all employees on page load
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const fetchEmployees = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/employees');
+      setEmployees(response.data); // Update the employees state with the fetched data
+    } catch (error) {
+      console.error('Error fetching employees:', error);
+    }
+  };
 
   const handleEmployeeFormChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +43,6 @@ const SettingsPage = () => {
   const handleAddEmployeeSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Map the employee form data to match your backend's employee object
       const employee = {
         empName: employeeForm.name,
         empMail: employeeForm.email,
@@ -39,6 +57,7 @@ const SettingsPage = () => {
 
       // Close the modal and show a success message
       setShowAddEmployeeModal(false);
+      fetchEmployees(); // Fetch the updated list of employees
       alert('Employee added successfully!');
     } catch (error) {
       console.error('Error adding employee:', error);
@@ -46,10 +65,52 @@ const SettingsPage = () => {
     }
   };
 
+  const handleDeleteEmployee = async (employeeId) => {
+    try {
+      // Send the DELETE request to the backend
+      await axios.delete(`http://localhost:8080/employees/${employeeId}`);
+
+      // Fetch the updated list of employees after deletion
+      fetchEmployees();
+      alert('Employee deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting employee:', error);
+      alert('Error deleting employee');
+    }
+  };
+
+  const handleDrawerToggle = () => {
+    setShowDrawer(!showDrawer); // Toggle drawer visibility
+  };
+
+  const handleLogout = () => {
+    // Clear authentication status from localStorage
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('empDesignation');
+    
+    // Redirect to the login page after logout
+    navigate('/login');
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Settings</h1>
-      
+
+      {/* Open Menu Button positioned on the left side */}
+      <div className="text-start mb-4">
+        <Button onClick={handleDrawerToggle}>
+          Open Menu
+        </Button>
+      </div>
+
+      {/* Drawer Component */}
+      <Drawer
+        showDrawer={showDrawer}
+        handleDrawerToggle={handleDrawerToggle}
+        empDesignation="admin" // Pass the employee's designation (for example, 'admin')
+        handleLogout={handleLogout} // Pass the handleLogout function
+      />
+
       {/* Add Employee Button */}
       <div className="text-end mb-4">
         <Button variant="primary" onClick={() => setShowAddEmployeeModal(true)}>
@@ -151,6 +212,40 @@ const SettingsPage = () => {
           </Form>
         </Modal.Body>
       </Modal>
+
+      {/* Employee Records Table */}
+      <div className="mt-4">
+        <h2>Employee Records</h2>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Designation</th>
+              <th>Username</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map((employee) => (
+              <tr key={employee.empId}>
+                <td>{employee.empName}</td>
+                <td>{employee.empMail}</td>
+                <td>{employee.empMobileNumber}</td>
+                <td>{employee.empDesignation}</td>
+                <td>{employee.username}</td>
+                <td>
+                  {/* Delete Button */}
+                  <Button variant="danger" onClick={() => handleDeleteEmployee(employee.empId)}>
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };

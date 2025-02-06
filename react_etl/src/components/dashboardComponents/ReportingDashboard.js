@@ -1,9 +1,15 @@
+// src/ReportingDashboard.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Button, Modal, Offcanvas } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
+
+// Importing the new OpenMenuButton and Drawer components
+import OpenMenuButton from '../MenuButton/OpenMenuButton';
+import Drawer from '../Drawer/Drawer';
 
 // Register chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -64,6 +70,7 @@ function ReportingDashboard() {
     setShowPieChart(true);   // Show the Pie Chart Modal
   };
 
+  // Function to get Pie Chart Data
   const getPieChartData = (data) => {
     const successCount = data.filter((report) => report.initState === 'SUCCESS').length;
     const failureCount = data.filter((report) => report.initState === 'FAILED').length;
@@ -101,30 +108,17 @@ function ReportingDashboard() {
     <div className="container mt-5">
       <h1 className="text-center mb-4">Reporting Dashboard</h1>
 
-      {/* Button to toggle the drawer */}
-      <Button variant="primary" onClick={handleDrawerToggle} className="mb-4">
-        Open Menu
-      </Button>
+      {/* Use the imported OpenMenuButton component */}
+      <OpenMenuButton handleDrawerToggle={handleDrawerToggle} />
 
-      {/* Drawer (Offcanvas component) */}
-      <Offcanvas show={showDrawer} onHide={handleDrawerToggle} placement="end">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          {/* Settings Button (only if admin) */}
-          {empDesignation === 'admin' && (
-            <Button variant="secondary" className="mb-2 w-100" onClick={handleSettingsClick}>
-              Settings
-            </Button>
-          )}
-
-          {/* Logout Button */}
-          <Button variant="danger" className="w-100" onClick={handleLogout}>
-            Logout
-          </Button>
-        </Offcanvas.Body>
-      </Offcanvas>
+      {/* Use the Drawer component */}
+      <Drawer
+        showDrawer={showDrawer}
+        handleDrawerToggle={handleDrawerToggle}
+        empDesignation={empDesignation}
+        handleSettingsClick={handleSettingsClick}
+        handleLogout={handleLogout}
+      />
 
       {/* Filter Form */}
       <form onSubmit={handleSubmit} className="mb-4">
@@ -162,7 +156,7 @@ function ReportingDashboard() {
           </div>
 
           <div className="col-md-3 mb-3">
-            <label htmlFor="initState" className="form-label">Initial State</label>
+            <label htmlFor="initState" className="form-label">Status</label>
             <select
               id="initState"
               name="initState"
@@ -170,7 +164,7 @@ function ReportingDashboard() {
               value={initState}
               onChange={(e) => setInitState(e.target.value)}
             >
-              <option value="">Select Initial State</option>
+              <option value="">Select Status</option>
               <option value="SUCCESS">SUCCESS</option>
               <option value="FAILED">FAILED</option>
             </select>
@@ -214,9 +208,10 @@ function ReportingDashboard() {
               <th>Application</th>
               <th>Environment</th>
               <th>Date and Time</th>
-              <th>Initial Status</th>
+              <th>Status</th>
               <th>Created Date</th>
               <th>Prev Date</th>
+              {empDesignation === 'user' && initState==='FAILED'&&<th>Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -229,6 +224,13 @@ function ReportingDashboard() {
                 <td>{report.initState}</td>
                 <td>{report.createdDt}</td>
                 <td>{report.prev}</td>
+                <td>
+        {report.initState === 'FAILED' && empDesignation === 'user' && (
+          <Button variant="danger" onClick={"dummyFunction"}>
+            Retry
+          </Button>
+        )}
+      </td>
               </tr>
             ))}
           </tbody>
