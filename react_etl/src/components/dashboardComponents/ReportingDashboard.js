@@ -1,5 +1,3 @@
-// src/ReportingDashboard.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -102,6 +100,14 @@ function ReportingDashboard() {
 
   const handleDrawerToggle = () => {
     setShowDrawer(!showDrawer); // Toggle the drawer visibility
+  };
+
+  // Handle row click for a failed report
+  const handleRowClick = (report) => {
+    if (report.initState === 'FAILED') {
+      // If the report's state is 'FAILED', navigate to a retry page or take some action
+      navigate(`/retry/${report.reportId}`); // Redirect to a retry page with the reportId
+    }
   };
 
   return (
@@ -216,7 +222,11 @@ function ReportingDashboard() {
           </thead>
           <tbody>
             {filteredReports.map((report) => (
-              <tr key={report.reportId}>
+              <tr
+                key={report.reportId}
+                style={{ cursor: report.initState === 'FAILED' ? 'pointer' : 'default' }}
+                onClick={() => handleRowClick(report)}
+              >
                 <td>{report.id}</td>
                 <td>{report.application}</td>
                 <td>{report.env}</td>
@@ -224,13 +234,9 @@ function ReportingDashboard() {
                 <td>{report.initState}</td>
                 <td>{report.createdDt}</td>
                 <td>{report.prev}</td>
-                <td>
-        {report.initState === 'FAILED' && empDesignation === 'engineer' && (
-          <Button variant="danger" onClick={"dummyFunction"}>
-            Retry
-          </Button>
-        )}
-      </td>
+                {report.initState === 'FAILED' && empDesignation === 'engineer' && (
+                  <td> {/* This can be empty or you can customize further actions */}</td>
+                )}
               </tr>
             ))}
           </tbody>
