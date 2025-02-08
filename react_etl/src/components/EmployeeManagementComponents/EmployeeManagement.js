@@ -136,6 +136,7 @@ const SettingsPage = () => {
 
   return (
     <div className="container mt-5">
+            <div className="border border-primary p-4 rounded shadow-sm">
       <h1 className="text-center mb-4">Settings</h1>
 
       {/* Open Menu Button positioned on the left side */}
@@ -387,6 +388,7 @@ const SettingsPage = () => {
           </tbody>
         </Table>
       </div>
+    </div>
     </div>
   );
 };
