@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ReportingDashboard from './components/dashboardComponents/ReportingDashboard';
 import Login from './components/loginComponents/Login';
 import PrivateRoute from './components/PrivateRouteComponents/PrivateRoute'; // Import PrivateRoute
-import SettingsPage from './components/SettingsComponents/SettingsPage';
+import EmployeeManagement from './components/EmployeeManagementComponents/EmployeeManagement';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
           path="/settings"
           element={
             <PrivateRoute>
-              <SettingsPage />
+              <EmployeeManagement />
             </PrivateRoute>
           }
         /> {/* Settings route */}
