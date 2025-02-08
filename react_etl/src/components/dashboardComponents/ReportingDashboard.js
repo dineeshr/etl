@@ -222,7 +222,6 @@ function ReportingDashboard() {
                 <th>Status</th>
                 <th>Created Date</th>
                 <th>Prev Date</th>
-                {empDesignation === 'engineer' && initState === 'FAILED' && <th>Actions</th>}
               </tr>
             </thead>
             <tbody>
@@ -239,9 +238,6 @@ function ReportingDashboard() {
                   <td>{report.initState}</td>
                   <td>{report.createdDt}</td>
                   <td>{report.prev}</td>
-                  {report.initState === 'FAILED' && empDesignation === 'engineer' && (
-                    <td> {/* This can be empty or you can customize further actions */}</td>
-                  )}
                 </tr>
               ))}
             </tbody>
