@@ -211,7 +211,7 @@ function ReportingDashboard() {
               <th>Status</th>
               <th>Created Date</th>
               <th>Prev Date</th>
-              {empDesignation === 'user' && initState==='FAILED'&&<th>Actions</th>}
+              {empDesignation === 'engineer' && initState==='FAILED'&&<th>Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -225,7 +225,7 @@ function ReportingDashboard() {
                 <td>{report.createdDt}</td>
                 <td>{report.prev}</td>
                 <td>
-        {report.initState === 'FAILED' && empDesignation === 'user' && (
+        {report.initState === 'FAILED' && empDesignation === 'engineer' && (
           <Button variant="danger" onClick={"dummyFunction"}>
             Retry
           </Button>

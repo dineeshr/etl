@@ -1,4 +1,4 @@
-package com.etl.etl.controller.AddEmployee;
+package com.etl.etl.controller.EmployeeManagement;
 
 import com.etl.etl.entities.login.Employee;
 import com.etl.etl.service.EmployeeManagementService.EmployeeManagementService;
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/employees")
@@ -31,4 +32,5 @@ public class EmployeeManagementController {
     public void deleteEmployee(@PathVariable Long empId) {
         employeeService.deleteEmployee(empId);
     }
+
 }

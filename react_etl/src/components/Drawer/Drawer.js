@@ -38,12 +38,12 @@ const Drawer = ({ showDrawer, handleDrawerToggle, empDesignation, handleLogout }
         </Button>
 
         {/* Settings Button */}
-        {empDesignation === 'admin' && (
+        {empDesignation === 'manager' && (
           <Button variant="secondary" className="mb-2 w-100" onClick={handleSettingsRedirect}>
             Manage Employees
           </Button>
         )}
-                {empDesignation === 'admin' && (
+                {empDesignation === 'manager' && (
           <Button variant="secondary" className="mb-2 w-100" onClick={"dummyFunctions"}>
             Reports
           </Button>

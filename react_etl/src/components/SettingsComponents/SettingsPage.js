@@ -10,7 +10,7 @@ const SettingsPage = () => {
     name: '',
     email: '',
     mobile: '',
-    designation: 'user',
+    designation: 'engineer',
     username: '',
     password: '',
   });
@@ -107,7 +107,7 @@ const SettingsPage = () => {
       <Drawer
         showDrawer={showDrawer}
         handleDrawerToggle={handleDrawerToggle}
-        empDesignation="admin" // Pass the employee's designation (for example, 'admin')
+        empDesignation="manager" // Pass the employee's designation (for example, 'manager')
         handleLogout={handleLogout} // Pass the handleLogout function
       />
 
@@ -174,8 +174,8 @@ const SettingsPage = () => {
                 onChange={handleEmployeeFormChange}
                 required
               >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
+                <option value="engineer">Engineer</option>
+                <option value="manager">Manager</option>
               </Form.Control>
             </Form.Group>
 
