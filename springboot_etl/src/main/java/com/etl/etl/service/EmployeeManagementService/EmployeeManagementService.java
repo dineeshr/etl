@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeManagementService {
@@ -28,5 +29,27 @@ public class EmployeeManagementService {
     public void deleteEmployee(Long empId) {
         employeeRepository.deleteById(empId);
     }
-}
 
+    // Update an existing employee by ID
+    public Employee updateEmployee(Long empId, Employee updatedEmployee) {
+        // Check if the employee exists in the repository
+        Optional<Employee> existingEmployeeOptional = employeeRepository.findById(empId);
+        if (existingEmployeeOptional.isPresent()) {
+            Employee existingEmployee = existingEmployeeOptional.get();
+
+            // Update employee details
+            existingEmployee.setEmpName(updatedEmployee.getEmpName());
+            existingEmployee.setEmpMail(updatedEmployee.getEmpMail());
+            existingEmployee.setEmpMobileNumber(updatedEmployee.getEmpMobileNumber());
+            existingEmployee.setEmpDesignation(updatedEmployee.getEmpDesignation());
+            existingEmployee.setUsername(updatedEmployee.getUsername());
+            existingEmployee.setPassword(updatedEmployee.getPassword());
+
+            // Save the updated employee
+            return employeeRepository.save(existingEmployee);
+        } else {
+            // Throw an exception or handle case if employee doesn't exist
+            throw new RuntimeException("Employee not found with ID: " + empId);
+        }
+    }
+}

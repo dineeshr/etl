@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SettingsPage = () => {
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
+  const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false);  // Modal for editing
   const [employeeForm, setEmployeeForm] = useState({
     name: '',
     email: '',
@@ -16,6 +17,7 @@ const SettingsPage = () => {
   });
   const [employees, setEmployees] = useState([]);
   const [showDrawer, setShowDrawer] = useState(false); // Drawer visibility state
+  const [editEmployeeId, setEditEmployeeId] = useState(null); // Store ID of employee being edited
   const navigate = useNavigate();
 
   // Fetch all employees on page load
@@ -53,7 +55,7 @@ const SettingsPage = () => {
       };
 
       // Send the POST request to the backend
-      const response = await axios.post('http://localhost:8080/employees', employee);
+      await axios.post('http://localhost:8080/employees', employee);
 
       // Close the modal and show a success message
       setShowAddEmployeeModal(false);
@@ -62,6 +64,32 @@ const SettingsPage = () => {
     } catch (error) {
       console.error('Error adding employee:', error);
       alert('Error adding employee');
+    }
+  };
+
+  const handleEditEmployeeSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const updatedEmployee = {
+        empId: editEmployeeId,  // Include the employee ID for updating the correct employee
+        empName: employeeForm.name,
+        empMail: employeeForm.email,
+        empMobileNumber: employeeForm.mobile,
+        empDesignation: employeeForm.designation,
+        username: employeeForm.username,
+        password: employeeForm.password,
+      };
+
+      // Send the PUT request to the backend
+      await axios.put(`http://localhost:8080/employees/${editEmployeeId}`, updatedEmployee);
+
+      // Close the edit modal and refresh the employee list
+      setShowEditEmployeeModal(false);
+      fetchEmployees();
+      alert('Employee updated successfully!');
+    } catch (error) {
+      console.error('Error updating employee:', error);
+      alert('Error updating employee');
     }
   };
 
@@ -92,6 +120,20 @@ const SettingsPage = () => {
     navigate('/login');
   };
 
+  const handleEditClick = (employee) => {
+    // Populate the form with the employee data
+    setEmployeeForm({
+      name: employee.empName,
+      email: employee.empMail,
+      mobile: employee.empMobileNumber,
+      designation: employee.empDesignation,
+      username: employee.username,
+      password: '', // You might want to keep this empty or add a default value
+    });
+    setEditEmployeeId(employee.empId);
+    setShowEditEmployeeModal(true); // Show the edit modal
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Settings</h1>
@@ -119,12 +161,108 @@ const SettingsPage = () => {
       </div>
 
       {/* Add Employee Modal */}
-      <Modal show={showAddEmployeeModal} onHide={() => setShowAddEmployeeModal(false)}>
+{/* Add Employee Modal */}
+<Modal show={showAddEmployeeModal} onHide={() => setShowAddEmployeeModal(false)}>
+  <Modal.Header closeButton>
+    <Modal.Title>Add Employee</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form onSubmit={handleAddEmployeeSubmit}>
+      {/* Name Input */}
+      <Form.Group controlId="name" className="mb-3">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter name"
+          name="name"
+          value={employeeForm.name}
+          onChange={handleEmployeeFormChange}
+          required
+        />
+      </Form.Group>
+
+      {/* Email Input */}
+      <Form.Group controlId="email" className="mb-3">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          name="email"
+          value={employeeForm.email}
+          onChange={handleEmployeeFormChange}
+          required
+        />
+      </Form.Group>
+
+      {/* Mobile Number Input */}
+      <Form.Group controlId="mobile" className="mb-3">
+        <Form.Label>Mobile Number</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter mobile number"
+          name="mobile"
+          value={employeeForm.mobile}
+          onChange={handleEmployeeFormChange}
+          required
+        />
+      </Form.Group>
+
+      {/* Designation Dropdown */}
+      <Form.Group controlId="designation" className="mb-3">
+        <Form.Label>Designation</Form.Label>
+        <Form.Control
+          as="select"
+          name="designation"
+          value={employeeForm.designation}
+          onChange={handleEmployeeFormChange}
+          required
+        >
+          <option value="engineer">Engineer</option>
+          <option value="manager">Manager</option>
+        </Form.Control>
+      </Form.Group>
+
+      {/* Username Input */}
+      <Form.Group controlId="username" className="mb-3">
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter username"
+          name="username"
+          value={employeeForm.username}
+          onChange={handleEmployeeFormChange}
+          required
+        />
+      </Form.Group>
+
+      {/* Password Input */}
+      <Form.Group controlId="password" className="mb-3">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Enter password"
+          name="password"
+          value={employeeForm.password}
+          onChange={handleEmployeeFormChange}
+        />
+      </Form.Group>
+
+      {/* Submit Button */}
+      <Button variant="primary" type="submit">
+        Add Employee
+      </Button>
+    </Form>
+  </Modal.Body>
+</Modal>
+
+
+      {/* Edit Employee Modal */}
+      <Modal show={showEditEmployeeModal} onHide={() => setShowEditEmployeeModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Employee</Modal.Title>
+          <Modal.Title>Edit Employee</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleAddEmployeeSubmit}>
+          <Form onSubmit={handleEditEmployeeSubmit}>
             {/* Name Input */}
             <Form.Group controlId="name" className="mb-3">
               <Form.Label>Name</Form.Label>
@@ -201,13 +339,12 @@ const SettingsPage = () => {
                 name="password"
                 value={employeeForm.password}
                 onChange={handleEmployeeFormChange}
-                required
               />
             </Form.Group>
 
             {/* Submit Button */}
             <Button variant="primary" type="submit">
-              Add Employee
+              Update Employee
             </Button>
           </Form>
         </Modal.Body>
@@ -236,6 +373,10 @@ const SettingsPage = () => {
                 <td>{employee.empDesignation}</td>
                 <td>{employee.username}</td>
                 <td>
+                  {/* Edit Button */}
+                  <Button variant="warning" onClick={() => handleEditClick(employee)}>
+                    Edit
+                  </Button>
                   {/* Delete Button */}
                   <Button variant="danger" onClick={() => handleDeleteEmployee(employee.empId)}>
                     Delete

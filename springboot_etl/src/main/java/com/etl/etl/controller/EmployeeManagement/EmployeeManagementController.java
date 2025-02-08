@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/employees")
 public class EmployeeManagementController {
@@ -33,4 +32,9 @@ public class EmployeeManagementController {
         employeeService.deleteEmployee(empId);
     }
 
+    // Update an existing employee by ID
+    @PutMapping("/{empId}")
+    public Employee updateEmployee(@PathVariable Long empId, @RequestBody Employee updatedEmployee) {
+        return employeeService.updateEmployee(empId, updatedEmployee);
+    }
 }
