@@ -14,14 +14,18 @@ function Login() {
       // Send a POST request to the backend API with both username and password
       const response = await axios.post('http://localhost:8080/api/auth/login', {
         username,
-        password
+        password,
       });
 
-      // Check if the response contains employee data, including empDesignation
-      if (response.data) {
+      // Check if the response contains employee data
+      if (response.status === 200 && response.data) {
         alert('Login successful');
-        localStorage.setItem('isAuthenticated', 'true'); // Store authentication status
-        localStorage.setItem('empDesignation', response.data.empDesignation); // Store designation
+        
+        // Clear any existing session or error states
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('empDesignation', response.data.empDesignation);
+        localStorage.setItem('user', JSON.stringify(response.data)); // Store full user info
+
         navigate('/'); // Redirect to the ReportingDashboard
       } else {
         alert('Invalid credentials');
@@ -63,8 +67,7 @@ function Login() {
           </div>
           <button type="submit" className="btn btn-primary w-100 py-2">Login</button>
         </form>
-        <div className="text-center mt-3">
-        </div>
+        <div className="text-center mt-3"></div>
       </div>
     </div>
   );

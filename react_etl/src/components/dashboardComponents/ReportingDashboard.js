@@ -28,10 +28,11 @@ function ReportingDashboard() {
   }, []);
 
   const fetchReports = async () => {
-    try {
+    try  {
       const response = await axios.get('http://localhost:8080/reports');
-      setReports(response.data);
-      setFilteredReports(response.data); // Initially set filtered reports to all reports
+      const sortedReports = response.data.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+      setReports(sortedReports);
+      setFilteredReports(sortedReports); // Set the sorted reports as filteredReports initially
     } catch (error) {
       console.error('Error fetching reports:', error);
     }
@@ -47,7 +48,8 @@ function ReportingDashboard() {
           initState: initState,
         },
       });
-      setFilteredReports(response.data); // Set filtered data to state
+      const sortedFilteredReports = response.data.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+      setFilteredReports(sortedFilteredReports); // Set the sorted filtered reports
     } catch (error) {
       console.error('Error fetching filtered reports:', error);
     }
