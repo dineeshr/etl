@@ -9,5 +9,5 @@ public interface ReportingDashboardProjection {
     LocalDateTime getDateTime();
     String getEnv();
     LocalDateTime getPrev();
-    String getInitState();  // Add initState here
+    String getCurrentState();  // Fetch currentState instead of initState
 }

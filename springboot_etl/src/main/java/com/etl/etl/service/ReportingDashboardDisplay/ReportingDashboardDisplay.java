@@ -18,8 +18,8 @@ public class ReportingDashboardDisplay {
         return repository.findAllProjectedBy();
     }
 
-    // Fetch filtered reports using the custom query
-    public List<ReportingDashboardProjection> getFilteredReports(String env, String application, String initState) {
-        return repository.findByEnvAndApplicationAndInitState(env, application, initState);
+    // Fetch filtered reports using the custom query (using currentState instead of initState)
+    public List<ReportingDashboardProjection> getFilteredReports(String env, String application, String currentState) {
+        return repository.findByEnvAndApplicationAndCurrentState(env, application, currentState);
     }
 }

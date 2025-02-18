@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface ReportingDashboardDisplayRepository extends JpaRepository<ReportingDashboard, Long> {
 
-    // Custom query to fetch specific fields (including initState) using the projection
-    @Query("SELECT r.id AS id, r.application AS application, r.createdDt AS createdDt, r.dateTime AS dateTime, r.env AS env, r.prev AS prev, r.initState AS initState " +
+    // Custom query to fetch specific fields (including currentState) using the projection
+    @Query("SELECT r.id AS id, r.application AS application, r.createdDt AS createdDt, r.dateTime AS dateTime, r.env AS env, r.prev AS prev, r.currentState AS currentState " +
            "FROM ReportingDashboard r")
     List<ReportingDashboardProjection> findAllProjectedBy();
 
-    // Custom query to fetch filtered reports with the given parameters, including initState
-    @Query("SELECT r.id AS id, r.application AS application, r.createdDt AS createdDt, r.dateTime AS dateTime, r.env AS env, r.prev AS prev, r.initState AS initState " +
-           "FROM ReportingDashboard r WHERE r.env = :env AND r.application = :application AND r.initState = :initState")
-    List<ReportingDashboardProjection> findByEnvAndApplicationAndInitState(String env, String application, String initState);
+    // Custom query to fetch filtered reports with the given parameters, including currentState
+    @Query("SELECT r.id AS id, r.application AS application, r.createdDt AS createdDt, r.dateTime AS dateTime, r.env AS env, r.prev AS prev, r.currentState AS currentState " +
+           "FROM ReportingDashboard r WHERE r.env = :env AND r.application = :application AND r.currentState = :currentState")
+    List<ReportingDashboardProjection> findByEnvAndApplicationAndCurrentState(String env, String application, String currentState);
 }

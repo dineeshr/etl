@@ -15,7 +15,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function ReportingDashboard() {
   const [env, setEnv] = useState('');
   const [application, setApplication] = useState('');
-  const [initState, setInitState] = useState('');
+  const [currentState, setCurrentState] = useState(''); // Changed from initState to currentState
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [showPieChart, setShowPieChart] = useState(false);
@@ -28,7 +28,7 @@ function ReportingDashboard() {
   }, []);
 
   const fetchReports = async () => {
-    try  {
+    try {
       const response = await axios.get('http://localhost:8080/reports');
       const sortedReports = response.data.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
       setReports(sortedReports);
@@ -45,7 +45,7 @@ function ReportingDashboard() {
         params: {
           env: env,
           application: application,
-          initState: initState,
+          currentState: currentState, // Changed from initState to currentState
         },
       });
       const sortedFilteredReports = response.data.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
@@ -58,7 +58,7 @@ function ReportingDashboard() {
   const handleReset = () => {
     setEnv('');
     setApplication('');
-    setInitState('');
+    setCurrentState(''); // Reset currentState instead of initState
     setFilteredReports(reports); // Reset the filtered reports to all reports when the filter is cleared
   };
 
@@ -72,8 +72,8 @@ function ReportingDashboard() {
 
   // Function to get Pie Chart Data
   const getPieChartData = (data) => {
-    const successCount = data.filter((report) => report.initState === 'SUCCESS').length;
-    const failureCount = data.filter((report) => report.initState === 'FAILED').length;
+    const successCount = data.filter((report) => report.currentState === 'SUCCESS').length; // Updated field
+    const failureCount = data.filter((report) => report.currentState === 'FAILED').length; // Updated field
 
     return {
       labels: ['SUCCESS', 'FAILED'],
@@ -106,7 +106,7 @@ function ReportingDashboard() {
 
   // Handle row click for a failed report
   const handleRowClick = (report) => {
-    if (report.initState === 'FAILED') {
+    if (report.currentState === 'FAILED') { // Updated field
       // If the report's state is 'FAILED', navigate to a retry page or take some action
       navigate(`/retry/${report.reportId}`); // Redirect to a retry page with the reportId
     }
@@ -169,13 +169,13 @@ function ReportingDashboard() {
             </div>
 
             <div className="col-md-3 mb-3">
-              <label htmlFor="initState" className="form-label">Status</label>
+              <label htmlFor="currentState" className="form-label">Status</label>
               <select
-                id="initState"
-                name="initState"
+                id="currentState"
+                name="currentState"
                 className="form-control"
-                value={initState}
-                onChange={(e) => setInitState(e.target.value)}
+                value={currentState}
+                onChange={(e) => setCurrentState(e.target.value)} // Changed from initState to currentState
               >
                 <option value="">Select Status</option>
                 <option value="SUCCESS">SUCCESS</option>
@@ -230,14 +230,14 @@ function ReportingDashboard() {
               {filteredReports.map((report) => (
                 <tr
                   key={report.reportId}
-                  style={{ cursor: report.initState === 'FAILED' ? 'pointer' : 'default' }}
+                  style={{ cursor: report.currentState === 'FAILED' ? 'pointer' : 'default' }} // Updated field
                   onClick={() => handleRowClick(report)}
                 >
                   <td>{report.id}</td>
                   <td>{report.application}</td>
                   <td>{report.env}</td>
                   <td>{report.dateTime}</td>
-                  <td>{report.initState}</td>
+                  <td>{report.currentState}</td> {/* Updated field */}
                   <td>{report.createdDt}</td>
                   <td>{report.prev}</td>
                 </tr>
