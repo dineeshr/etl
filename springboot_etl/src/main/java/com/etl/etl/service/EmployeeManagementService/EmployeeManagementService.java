@@ -15,9 +15,9 @@ public class EmployeeManagementService {
     @Autowired
     private EmployeeLoginRepository employeeRepository;
 
-    // Fetch all employees
+    // Fetch all employees, ordered by empName
     public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+        return employeeRepository.findAllByOrderByEmpNameAsc();  // Ordered by employee name
     }
 
     // Add a new employee
@@ -52,4 +52,11 @@ public class EmployeeManagementService {
             throw new RuntimeException("Employee not found with ID: " + empId);
         }
     }
+
+    // Fetch employees by designation (e.g., "manager") to show in the dropdown
+// In EmployeeManagementService.java
+public List<Employee> getEngineers() {
+    return employeeRepository.findByEmpDesignation("engineer"); // Fetch only engineers
+}
+
 }

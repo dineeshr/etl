@@ -2,8 +2,9 @@ package com.etl.etl.service.ReportingDashboardDisplay;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.etl.etl.Projection.ReportingDashboardProjection;
 import com.etl.etl.repository.ReportingDashboard.ReportingDashboardDisplayRepository;
-import com.etl.etl.repository.ReportingDashboard.Projection.ReportingDashboardProjection;
 
 import java.util.List;
 

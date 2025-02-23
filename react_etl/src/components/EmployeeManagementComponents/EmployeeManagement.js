@@ -4,7 +4,7 @@ import axios from 'axios';
 import Drawer from '../Drawer/Drawer'; // Assuming your Drawer component is in the same directory
 import { useNavigate } from 'react-router-dom';
 
-const SettingsPage = () => {
+const EmployeeManagement = () => {
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
   const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false);  // Modal for editing
   const [employeeForm, setEmployeeForm] = useState({
@@ -136,261 +136,240 @@ const SettingsPage = () => {
 
   return (
     <div className="container mt-5">
-            <div className="border border-primary p-4 rounded shadow-sm">
-      <h1 className="text-center mb-4">Settings</h1>
+      <div className="p-4 rounded shadow-sm">
+        <h1 className="text-center mb-4">Manage Employees</h1>
 
-      {/* Open Menu Button positioned on the left side */}
-      <div className="text-start mb-4">
-        <Button onClick={handleDrawerToggle}>
-          Open Menu
-        </Button>
-      </div>
+        <div className="text-start mb-4">
+          <Button onClick={handleDrawerToggle}>
+            Open Menu
+          </Button>
+        </div>
 
-      {/* Drawer Component */}
-      <Drawer
-        showDrawer={showDrawer}
-        handleDrawerToggle={handleDrawerToggle}
-        empDesignation="manager" // Pass the employee's designation (for example, 'manager')
-        handleLogout={handleLogout} // Pass the handleLogout function
-      />
-
-      {/* Add Employee Button */}
-      <div className="text-end mb-4">
-        <Button variant="primary" onClick={() => setShowAddEmployeeModal(true)}>
-          Add Employee
-        </Button>
-      </div>
-
-      {/* Add Employee Modal */}
-{/* Add Employee Modal */}
-<Modal show={showAddEmployeeModal} onHide={() => setShowAddEmployeeModal(false)}>
-  <Modal.Header closeButton>
-    <Modal.Title>Add Employee</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    <Form onSubmit={handleAddEmployeeSubmit}>
-      {/* Name Input */}
-      <Form.Group controlId="name" className="mb-3">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter name"
-          name="name"
-          value={employeeForm.name}
-          onChange={handleEmployeeFormChange}
-          required
+        <Drawer
+          showDrawer={showDrawer}
+          handleDrawerToggle={handleDrawerToggle}
+          empDesignation="manager" // Pass the employee's designation (for example, 'manager')
+          handleLogout={handleLogout} // Pass the handleLogout function
         />
-      </Form.Group>
 
-      {/* Email Input */}
-      <Form.Group controlId="email" className="mb-3">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          name="email"
-          value={employeeForm.email}
-          onChange={handleEmployeeFormChange}
-          required
-        />
-      </Form.Group>
+        <div className="text-end mb-4">
+          <Button onClick={() => setShowAddEmployeeModal(true)}>
+            Add Employee
+          </Button>
+        </div>
 
-      {/* Mobile Number Input */}
-      <Form.Group controlId="mobile" className="mb-3">
-        <Form.Label>Mobile Number</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter mobile number"
-          name="mobile"
-          value={employeeForm.mobile}
-          onChange={handleEmployeeFormChange}
-          required
-        />
-      </Form.Group>
+        {/* Add Employee Modal */}
+        <Modal show={showAddEmployeeModal} onHide={() => setShowAddEmployeeModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Employee</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleAddEmployeeSubmit}>
+              <Form.Group controlId="name" className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name"
+                  name="name"
+                  value={employeeForm.name}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-      {/* Designation Dropdown */}
-      <Form.Group controlId="designation" className="mb-3">
-        <Form.Label>Designation</Form.Label>
-        <Form.Control
-          as="select"
-          name="designation"
-          value={employeeForm.designation}
-          onChange={handleEmployeeFormChange}
-          required
-        >
-          <option value="engineer">Engineer</option>
-          <option value="manager">Manager</option>
-        </Form.Control>
-      </Form.Group>
+              <Form.Group controlId="email" className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  name="email"
+                  value={employeeForm.email}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-      {/* Username Input */}
-      <Form.Group controlId="username" className="mb-3">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter username"
-          name="username"
-          value={employeeForm.username}
-          onChange={handleEmployeeFormChange}
-          required
-        />
-      </Form.Group>
+              <Form.Group controlId="mobile" className="mb-3">
+                <Form.Label>Mobile Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter mobile number"
+                  name="mobile"
+                  value={employeeForm.mobile}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-      {/* Password Input */}
-      <Form.Group controlId="password" className="mb-3">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Enter password"
-          name="password"
-          value={employeeForm.password}
-          onChange={handleEmployeeFormChange}
-        />
-      </Form.Group>
+              <Form.Group controlId="designation" className="mb-3">
+                <Form.Label>Designation</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="designation"
+                  value={employeeForm.designation}
+                  onChange={handleEmployeeFormChange}
+                  required
+                >
+                  <option value="engineer">Engineer</option>
+                  <option value="manager">Manager</option>
+                </Form.Control>
+              </Form.Group>
 
-      {/* Submit Button */}
-      <Button variant="primary" type="submit">
-        Add Employee
-      </Button>
-    </Form>
-  </Modal.Body>
-</Modal>
+              <Form.Group controlId="username" className="mb-3">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter username"
+                  name="username"
+                  value={employeeForm.username}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
+              <Form.Group controlId="password" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  name="password"
+                  value={employeeForm.password}
+                  onChange={handleEmployeeFormChange}
+                />
+              </Form.Group>
 
-      {/* Edit Employee Modal */}
-      <Modal show={showEditEmployeeModal} onHide={() => setShowEditEmployeeModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Employee</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleEditEmployeeSubmit}>
-            {/* Name Input */}
-            <Form.Group controlId="name" className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter name"
-                name="name"
-                value={employeeForm.name}
-                onChange={handleEmployeeFormChange}
-                required
-              />
-            </Form.Group>
+              <Button className="custom-add-employee-btn" type="submit">
+                Add Employee
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
 
-            {/* Email Input */}
-            <Form.Group controlId="email" className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-                value={employeeForm.email}
-                onChange={handleEmployeeFormChange}
-                required
-              />
-            </Form.Group>
+        {/* Edit Employee Modal */}
+        <Modal show={showEditEmployeeModal} onHide={() => setShowEditEmployeeModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Employee</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleEditEmployeeSubmit}>
+              <Form.Group controlId="name" className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name"
+                  name="name"
+                  value={employeeForm.name}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-            {/* Mobile Number Input */}
-            <Form.Group controlId="mobile" className="mb-3">
-              <Form.Label>Mobile Number</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter mobile number"
-                name="mobile"
-                value={employeeForm.mobile}
-                onChange={handleEmployeeFormChange}
-                required
-              />
-            </Form.Group>
+              <Form.Group controlId="email" className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  name="email"
+                  value={employeeForm.email}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-            {/* Designation Dropdown */}
-            <Form.Group controlId="designation" className="mb-3">
-              <Form.Label>Designation</Form.Label>
-              <Form.Control
-                as="select"
-                name="designation"
-                value={employeeForm.designation}
-                onChange={handleEmployeeFormChange}
-                required
-              >
-                <option value="engineer">Engineer</option>
-                <option value="manager">Manager</option>
-              </Form.Control>
-            </Form.Group>
+              <Form.Group controlId="mobile" className="mb-3">
+                <Form.Label>Mobile Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter mobile number"
+                  name="mobile"
+                  value={employeeForm.mobile}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-            {/* Username Input */}
-            <Form.Group controlId="username" className="mb-3">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter username"
-                name="username"
-                value={employeeForm.username}
-                onChange={handleEmployeeFormChange}
-                required
-              />
-            </Form.Group>
+              <Form.Group controlId="designation" className="mb-3">
+                <Form.Label>Designation</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="designation"
+                  value={employeeForm.designation}
+                  onChange={handleEmployeeFormChange}
+                  required
+                >
+                  <option value="engineer">Engineer</option>
+                  <option value="manager">Manager</option>
+                </Form.Control>
+              </Form.Group>
 
-            {/* Password Input */}
-            <Form.Group controlId="password" className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter password"
-                name="password"
-                value={employeeForm.password}
-                onChange={handleEmployeeFormChange}
-              />
-            </Form.Group>
+              <Form.Group controlId="username" className="mb-3">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter username"
+                  name="username"
+                  value={employeeForm.username}
+                  onChange={handleEmployeeFormChange}
+                  required
+                />
+              </Form.Group>
 
-            {/* Submit Button */}
-            <Button variant="primary" type="submit">
-              Update Employee
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+              <Form.Group controlId="password" className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  name="password"
+                  value={employeeForm.password}
+                  onChange={handleEmployeeFormChange}
+                />
+              </Form.Group>
 
-      {/* Employee Records Table */}
-      <div className="mt-4">
-        <h2>Employee Records</h2>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>Designation</th>
-              <th>Username</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((employee) => (
-              <tr key={employee.empId}>
-                <td>{employee.empName}</td>
-                <td>{employee.empMail}</td>
-                <td>{employee.empMobileNumber}</td>
-                <td>{employee.empDesignation}</td>
-                <td>{employee.username}</td>
-                <td>
-                  {/* Edit Button */}
-                  <Button variant="warning" onClick={() => handleEditClick(employee)}>
-                    Edit
-                  </Button>
-                  {/* Delete Button */}
-                  <Button variant="danger" onClick={() => handleDeleteEmployee(employee.empId)}>
-                    Delete
-                  </Button>
-                </td>
+              <Button className="custom-add-employee-btn" type="submit">
+                Update Employee
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+
+        {/* Employee Records Table */}
+        <div className="mt-4">
+          <h2>Employee Records</h2>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Designation</th>
+                <th>Username</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {employees.map((employee) => (
+                <tr key={employee.empId}>
+                  <td>{employee.empName}</td>
+                  <td>{employee.empMail}</td>
+                  <td>{employee.empMobileNumber}</td>
+                  <td>{employee.empDesignation}</td>
+                  <td>{employee.username}</td>
+                  <td>
+                    <Button onClick={() => handleEditClick(employee)}>
+                      Edit
+                    </Button>
+                    <Button onClick={() => handleDeleteEmployee(employee.empId)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
 
-export default SettingsPage;
+export default EmployeeManagement;

@@ -9,6 +9,9 @@ import { Modal, Button } from 'react-bootstrap';
 import OpenMenuButton from '../MenuButton/OpenMenuButton';
 import Drawer from '../Drawer/Drawer';
 
+// Importing the external CSS file
+// import '../css/ReportingDashboard.css'; // Adjust this path based on your file structure
+
 // Register chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -29,7 +32,7 @@ function ReportingDashboard() {
 
   const fetchReports = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/reports');
+      const response = await axios.get('http://localhost:8080/reports/dashboard');
       const sortedReports = response.data.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
       setReports(sortedReports);
       setFilteredReports(sortedReports); // Set the sorted reports as filteredReports initially
@@ -41,7 +44,7 @@ function ReportingDashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get('http://localhost:8080/reports/filter', {
+      const response = await axios.get('http://localhost:8080/reports/dashboard/filter', {
         params: {
           env: env,
           application: application,
@@ -108,14 +111,14 @@ function ReportingDashboard() {
   const handleRowClick = (report) => {
     if (report.currentState === 'FAILED') { // Updated field
       // If the report's state is 'FAILED', navigate to a retry page or take some action
-      navigate(`/retry/${report.reportId}`); // Redirect to a retry page with the reportId
+      navigate(`/submit-report/${report.id}`); // Redirect to a retry page with the reportId
     }
   };
 
   return (
     <div className="container mt-5">
-      {/* Add border-primary class to change border color to blue */}
-      <div className="border border-primary p-4 rounded shadow-sm">
+      {/* Remove the border-primary class to remove the blue border */}
+      <div className="p-4 rounded shadow-sm">
         <h1 className="text-center mb-4">Reporting Dashboard</h1>
 
         {/* Add margin classes for spacing around the OpenMenuButton */}

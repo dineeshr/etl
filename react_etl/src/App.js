@@ -5,6 +5,7 @@ import ReportingDashboard from './components/dashboardComponents/ReportingDashbo
 import Login from './components/loginComponents/Login';
 import PrivateRoute from './components/PrivateRouteComponents/PrivateRoute'; // Import PrivateRoute
 import EmployeeManagement from './components/EmployeeManagementComponents/EmployeeManagement';
+import './components/css/GlobalCSS.css';  // This will apply styles globally
 
 function App() {
   return (

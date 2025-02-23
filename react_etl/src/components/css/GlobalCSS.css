@@ -1,0 +1,262 @@
+/* Global Styles */
+body {
+  background-color: #ecf0f1; /* Light gray background */
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #2c3e50; /* Dark gray text for general use */
+  margin: 0;
+  padding: 0;
+  border: 10px solid #16a085; /* Emerald Green border around the entire page */
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+  /* Removed the border from the container */
+}
+
+/* Title */
+h1 {
+  font-size: 36px;
+  color: #34495e; /* Deep blue for the title */
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Form styling */
+form {
+  background-color: #ffffff; /* Clean white background for form */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #16a085; /* Emerald Green for labels */
+}
+
+select.form-control {
+  border: 1px solid #16a085; /* Emerald Green border for form fields */
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #ecf0f1; /* Light gray background for input fields */
+}
+
+button {
+  font-weight: 600;
+  padding: 10px 15px;
+  background-color: #f39c12; /* Soft Gold for main buttons */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  background-color: #e67e22; /* Slightly darker gold on hover */
+}
+
+/* Filter Form Buttons */
+button[type="submit"] {
+  background-color: #f39c12; /* Soft Gold for submit buttons */
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #e67e22; /* Darker gold on hover */
+}
+
+button[type="button"] {
+  background-color: #16a085; /* Emerald Green for secondary buttons */
+  color: white;
+}
+
+button[type="button"]:hover {
+  background-color: #1abc9c; /* Lighter emerald green on hover */
+}
+
+/* Modal */
+.modal-title {
+  color: #34495e; /* Deep blue for modal title */
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #34495e; /* Deep blue for table headers */
+  color: white;
+  font-weight: 700;
+}
+
+.table td {
+  background-color: #ffffff; /* White background for table cells */
+}
+
+.table tr:hover {
+  background-color: #ecf0f1; /* Light gray hover effect */
+  cursor: pointer;
+}
+
+.table .failed {
+  background-color: #f8c7c5; /* Soft red for failed reports */
+}
+
+.table .success {
+  background-color: #a5d8a5; /* Soft green for success reports */
+}
+
+.table .failed:hover {
+  background-color: #f5b7b1; /* Darker red on hover */
+}
+
+.table .success:hover {
+  background-color: #7bbf7b; /* Darker green on hover */
+}
+
+/* Pie Chart Button */
+button.w-100 {
+  margin-top: 20px;
+  background-color: #16a085; /* Emerald Green for Pie Chart Button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button.w-100:hover {
+  background-color: #1abc9c; /* Lighter emerald green on hover */
+}
+
+/* Drawer */
+.drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #34495e; /* Deep blue for the drawer */
+  color: white;
+  padding-top: 20px;
+  transition: transform 0.3s ease;
+  transform: translateX(-250px);
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer a {
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  display: block;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.drawer a:hover {
+  background-color: #f39c12; /* Soft gold on hover for drawer links */
+}
+
+/* Open Menu Button */
+.open-menu-btn {
+  font-size: 28px;
+  cursor: pointer;
+  color: #f39c12; /* Soft gold for menu button */
+  background: none;
+  border: none;
+}
+
+.open-menu-btn:hover {
+  color: #e67e22; /* Darker gold for hover effect */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  .table th, .table td {
+    font-size: 12px;
+  }
+
+  .table .failed, .table .success {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .table th, .table td {
+    font-size: 10px;
+    padding: 8px;
+  }
+
+  .form-label {
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+/* Custom button styling */
+.custom-add-employee-btn {
+  background-color: #f39c12; /* Soft Gold */
+  border: 2px solid #f39c12; /* Matching border */
+  color: white;
+  font-weight: 600;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.custom-add-employee-btn:hover {
+  background-color: #e67e22; /* Darker gold on hover */
+  border-color: #e67e22; /* Darker border on hover */
+}
+
+.custom-add-employee-btn:focus {
+  outline: none;
+}
+
+.custom-add-employee-btn:disabled {
+  background-color: #bdc3c7; /* Light gray for disabled state */
+  border-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+  
+}

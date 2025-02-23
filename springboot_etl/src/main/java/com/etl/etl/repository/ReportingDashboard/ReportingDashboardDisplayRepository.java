@@ -1,7 +1,8 @@
 package com.etl.etl.repository.ReportingDashboard;
 
+import com.etl.etl.Projection.ReportingDashboardProjection;
 import com.etl.etl.entities.Reporting_DB.ReportingDashboard;
-import com.etl.etl.repository.ReportingDashboard.Projection.ReportingDashboardProjection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;

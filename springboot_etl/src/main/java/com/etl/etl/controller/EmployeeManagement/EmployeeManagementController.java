@@ -17,7 +17,7 @@ public class EmployeeManagementController {
     // Get all employees
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+        return employeeService.getAllEmployees();  // Fetch all employees, ordered by name
     }
 
     // Add a new employee
@@ -37,4 +37,12 @@ public class EmployeeManagementController {
     public Employee updateEmployee(@PathVariable Long empId, @RequestBody Employee updatedEmployee) {
         return employeeService.updateEmployee(empId, updatedEmployee);
     }
+
+    // Get employees by designation (e.g., manager)
+// In EmployeeManagementController.java
+@GetMapping("/designation/engineer")
+public List<Employee> getEngineers() {
+    return employeeService.getEngineers();
+}
+
 }

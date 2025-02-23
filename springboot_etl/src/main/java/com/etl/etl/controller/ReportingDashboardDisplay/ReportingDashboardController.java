@@ -1,6 +1,6 @@
 package com.etl.etl.controller.ReportingDashboardDisplay;
 
-import com.etl.etl.repository.ReportingDashboard.Projection.ReportingDashboardProjection;
+import com.etl.etl.Projection.ReportingDashboardProjection;
 import com.etl.etl.service.ReportingDashboardDisplay.ReportingDashboardDisplay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class ReportingDashboardController {
     private ReportingDashboardDisplay service;
 
     // Fetch all reports
-    @GetMapping(value = "/reports", produces = "application/json")
+    @GetMapping(value = "/reports/dashboard", produces = "application/json")
     @ResponseBody
     public List<ReportingDashboardProjection> getReports() {
         // Fetch all reports using the service
@@ -27,13 +27,14 @@ public class ReportingDashboardController {
     }
 
     // Fetch filtered reports
-    @GetMapping(value = "/reports/filter", produces = "application/json")
+    @GetMapping(value = "/reports/dashboard/filter", produces = "application/json")
     @ResponseBody
     public List<ReportingDashboardProjection> getFilteredReports(
             @RequestParam String env,
             @RequestParam String application,
-            @RequestParam String initState) {
-        // Fetch filtered reports using the service
-        return service.getFilteredReports(env, application, initState);
+            @RequestParam String currentState) {  // Changed initState to currentState
+        // Fetch filtered reports using the service based on currentState
+        return service.getFilteredReports(env, application, currentState);
     }
+    
 }
