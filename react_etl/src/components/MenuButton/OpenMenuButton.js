@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 const OpenMenuButton = ({ handleDrawerToggle }) => {
   return (
-    <Button variant="primary" onClick={handleDrawerToggle}>
+    <Button onClick={handleDrawerToggle}>
       Open Menu
     </Button>
   );

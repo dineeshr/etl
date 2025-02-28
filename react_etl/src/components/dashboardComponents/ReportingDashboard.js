@@ -109,7 +109,7 @@ function ReportingDashboard() {
 
   // Handle row click for a failed report
   const handleRowClick = (report) => {
-    if (report.currentState === 'FAILED') { // Updated field
+    if (empDesignation === 'engineer' && report.currentState === 'FAILED') { // Updated field
       // If the report's state is 'FAILED', navigate to a retry page or take some action
       navigate(`/submit-report/${report.id}`); // Redirect to a retry page with the reportId
     }
@@ -232,10 +232,11 @@ function ReportingDashboard() {
             <tbody>
               {filteredReports.map((report) => (
                 <tr
-                  key={report.reportId}
-                  style={{ cursor: report.currentState === 'FAILED' ? 'pointer' : 'default' }} // Updated field
-                  onClick={() => handleRowClick(report)}
-                >
+  key={report.reportId}
+  style={{ cursor: empDesignation === 'engineer' && report.currentState === 'FAILED' ? 'pointer' : 'default' }}
+  onClick={() => empDesignation === 'engineer' && handleRowClick(report)}
+>
+
                   <td>{report.id}</td>
                   <td>{report.application}</td>
                   <td>{report.env}</td>
