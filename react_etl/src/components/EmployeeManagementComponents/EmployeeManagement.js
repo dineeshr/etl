@@ -44,52 +44,56 @@ const EmployeeManagement = () => {
 
   const handleAddEmployeeSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const employee = {
-        empName: employeeForm.name,
-        empMail: employeeForm.email,
-        empMobileNumber: employeeForm.mobile,
-        empDesignation: employeeForm.designation,
-        username: employeeForm.username,
-        password: employeeForm.password,
-      };
+    if (validateForm(employeeForm)) {
+      try {
+        const employee = {
+          empName: employeeForm.name,
+          empMail: employeeForm.email,
+          empMobileNumber: employeeForm.mobile,
+          empDesignation: employeeForm.designation,
+          username: employeeForm.username,
+          password: employeeForm.password,
+        };
 
-      // Send the POST request to the backend
-      await axios.post('http://localhost:8080/employees', employee);
+        // Send the POST request to the backend
+        await axios.post('http://localhost:8080/employees', employee);
 
-      // Close the modal and show a success message
-      setShowAddEmployeeModal(false);
-      fetchEmployees(); // Fetch the updated list of employees
-      alert('Employee added successfully!');
-    } catch (error) {
-      console.error('Error adding employee:', error);
-      alert('Error adding employee');
+        // Close the modal and show a success message
+        setShowAddEmployeeModal(false);
+        fetchEmployees(); // Fetch the updated list of employees
+        alert('Employee added successfully!');
+      } catch (error) {
+        console.error('Error adding employee:', error);
+        alert('Error adding employee');
+      }
     }
   };
 
   const handleEditEmployeeSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const updatedEmployee = {
-        empId: editEmployeeId,  // Include the employee ID for updating the correct employee
-        empName: employeeForm.name,
-        empMail: employeeForm.email,
-        empMobileNumber: employeeForm.mobile,
-        empDesignation: employeeForm.designation,
-        username: employeeForm.username,
-        password: employeeForm.password,
-      };
+    if (validateForm(employeeForm)) {
+      try {
+        const updatedEmployee = {
+          empId: editEmployeeId,  // Include the employee ID for updating the correct employee
+          empName: employeeForm.name,
+          empMail: employeeForm.email,
+          empMobileNumber: employeeForm.mobile,
+          empDesignation: employeeForm.designation,
+          username: employeeForm.username,
+          password: employeeForm.password,
+        };
 
-      // Send the PUT request to the backend
-      await axios.put(`http://localhost:8080/employees/${editEmployeeId}`, updatedEmployee);
+        // Send the PUT request to the backend
+        await axios.put(`http://localhost:8080/employees/${editEmployeeId}`, updatedEmployee);
 
-      // Close the edit modal and refresh the employee list
-      setShowEditEmployeeModal(false);
-      fetchEmployees();
-      alert('Employee updated successfully!');
-    } catch (error) {
-      console.error('Error updating employee:', error);
-      alert('Error updating employee');
+        // Close the edit modal and refresh the employee list
+        setShowEditEmployeeModal(false);
+        fetchEmployees();
+        alert('Employee updated successfully!');
+      } catch (error) {
+        console.error('Error updating employee:', error);
+        alert('Error updating employee');
+      }
     }
   };
 
@@ -132,6 +136,44 @@ const EmployeeManagement = () => {
     });
     setEditEmployeeId(employee.empId);
     setShowEditEmployeeModal(true); // Show the edit modal
+  };
+
+  // Validation function
+  const validateForm = (form) => {
+    // Name validation: Check if the name is not empty
+    if (!form.name) {
+      alert('Name is required');
+      return false;
+    }
+
+    // Email validation: Check if the email is not empty and matches email format
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!form.email || !emailPattern.test(form.email)) {
+      alert('Please enter a valid email');
+      return false;
+    }
+
+    // Mobile number validation: Check if it's 10 characters long and contains only numbers
+    const mobilePattern = /^\d{10}$/;
+    if (!form.mobile || !mobilePattern.test(form.mobile)) {
+      alert('Mobile number must be 10 digits');
+      return false;
+    }
+
+    // Username validation: Check if the username is not empty
+    if (!form.username) {
+      alert('Username is required');
+      return false;
+    }
+
+    // Password validation: Minimum 8 characters, at least one uppercase, one number, and one special character
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+    if (!form.password || !passwordPattern.test(form.password)) {
+      alert('Password must be at least 8 characters, contain one uppercase letter, one number, and one special character');
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -235,6 +277,7 @@ const EmployeeManagement = () => {
                   name="password"
                   value={employeeForm.password}
                   onChange={handleEmployeeFormChange}
+                  required
                 />
               </Form.Group>
 
