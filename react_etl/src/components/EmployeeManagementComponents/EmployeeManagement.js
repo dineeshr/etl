@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EmployeeManagement = () => {
   const [showAddEmployeeModal, setShowAddEmployeeModal] = useState(false);
-  const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false);  // Modal for editing
+  const [showEditEmployeeModal, setShowEditEmployeeModal] = useState(false); // Modal for editing
   const [employeeForm, setEmployeeForm] = useState({
     name: '',
     email: '',
