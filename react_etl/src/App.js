@@ -24,13 +24,13 @@ function App() {
           }
         /> {/* Dashboard route */}
         <Route
-          path="/settings"
+          path="/EmployeeManagement"
           element={
             <PrivateRoute>
               <EmployeeManagement />
             </PrivateRoute>
           }
-        /> {/* Settings route */}
+        /> {/* EmployeeManagement route */}
       </Routes>
     </Router>
   );

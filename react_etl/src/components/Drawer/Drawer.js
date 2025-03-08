@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 const Drawer = ({ showDrawer, handleDrawerToggle, empDesignation, handleLogout }) => {
   const navigate = useNavigate(); // To handle navigation
 
-  const handleSettingsRedirect = () => {
-    // Navigate to the settings page
-    navigate('/settings');
+  const handleEmployeeManagementRedirect = () => {
+    // Navigate to the EmployeeManagement page
+    navigate('/EmployeeManagement');
   };
 
   const handleLogoutAction = () => {
@@ -107,9 +107,9 @@ const Drawer = ({ showDrawer, handleDrawerToggle, empDesignation, handleLogout }
             Home
           </Button>
 
-          {/* Settings Button */}
+          {/* EmployeeManagement Button */}
           {empDesignation === 'manager' && (
-            <Button variant="secondary" className="mb-2 w-100" onClick={handleSettingsRedirect}>
+            <Button variant="secondary" className="mb-2 w-100" onClick={handleEmployeeManagementRedirect}>
               Manage Employees
             </Button>
           )}

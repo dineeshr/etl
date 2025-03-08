@@ -1,5 +1,6 @@
 package com.etl.etl.controller.LoginController;
 
+import com.etl.etl.Projection.EmployeeLoginProjection;
 import com.etl.etl.entities.login.Employee;
 import com.etl.etl.repository.EmployeeRepository.EmployeeLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,29 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public Employee authenticateUser(@RequestBody Employee loginDetails) {
+    public EmployeeLoginProjection authenticateUser(@RequestBody Employee loginDetails) {
         // Fetch the employee by username
         Employee employee = employeeLoginRepository.findByUsername(loginDetails.getUsername());
 
-        // Compare the raw password with the encoded password
+        // Check if employee exists and password matches
         if (employee != null && passwordEncoder.matches(loginDetails.getPassword(), employee.getPassword())) {
-            // Return the employee object if authentication is successful
-            return employee;
+            // Return the employee projection with selected fields
+            return new EmployeeLoginProjection() {
+                @Override
+                public Long getEmpId() {
+                    return employee.getEmpId();
+                }
+
+                @Override
+                public String getEmpName() {
+                    return employee.getEmpName();
+                }
+
+                @Override
+                public String getEmpDesignation() {
+                    return employee.getEmpDesignation();
+                }
+            };
         } else {
             return null; // Invalid credentials
         }

@@ -98,8 +98,8 @@ function ReportingDashboard() {
     navigate('/login');
   };
 
-  const handleSettingsClick = () => {
-    navigate('/settings');  // Redirect to settings page
+  const handleEmployeeManagementClick = () => {
+    navigate('/EmployeeManagement');  // Redirect to EmployeeManagement page
     setShowDrawer(false); // Close the drawer when navigating
   };
 
@@ -132,7 +132,7 @@ function ReportingDashboard() {
           showDrawer={showDrawer}
           handleDrawerToggle={handleDrawerToggle}
           empDesignation={empDesignation}
-          handleSettingsClick={handleSettingsClick}
+          handleEmployeeManagementClick={handleEmployeeManagementClick}
           handleLogout={handleLogout}
         />
 
