@@ -32,9 +32,19 @@ public class EmployeeManagementService {
     }
 
     // Delete an employee by ID
-    public void deleteEmployee(Long empId) {
-        employeeRepository.deleteById(empId);
+    public Employee deleteEmployee(Long empId) {
+        Optional<Employee> employee = employeeRepository.findById(empId);  // Check if employee exists
+        if (employee.isPresent()) {
+            employeeRepository.delete(employee.get());  // Delete the employee if found
+            return employee.get();  // Return the deleted employee
+        } else {
+            return null;  // Return null if employee is not found
+        }
     }
+    
+    
+    
+    
 
     // Update an existing employee by ID
     public Employee updateEmployee(Long empId, Employee updatedEmployee) {
