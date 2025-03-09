@@ -10,8 +10,7 @@ import java.util.List;
 public interface ReportingDashboardDisplayRepository extends JpaRepository<ReportingDashboard, Long> {
 
     // Custom query to fetch specific fields (including currentState) using the projection
-    @Query("SELECT r.id AS id, r.application AS application, r.createdDt AS createdDt, r.dateTime AS dateTime, r.env AS env, r.prev AS prev, r.currentState AS currentState " +
-           "FROM ReportingDashboard r")
+    @Query("SELECT r FROM ReportingDashboard r")
     List<ReportingDashboardProjection> findAllProjectedBy();
 
     // Custom query to fetch filtered reports with the given parameters, including currentState
