@@ -1,0 +1,133 @@
+/* DrawerMenu.module.css */
+.offcanvas {
+  background-color: #06402B !important; /* Dark green background for the entire drawer */
+}
+
+.offcanvasHeader {
+  background-color: #06402B;
+}
+
+.offcanvasTitle {
+  font-weight: bold;
+  color: white; /* Change text color to white */
+}
+
+/* Button base styles */
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: #06402B; /* Dark green background for buttons */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition effect */
+}
+
+/* Hover effect */
+.button:hover {
+  background-color: #055028; /* Slightly darker green on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Active state (when clicked) */
+.button:active {
+  background-color: #055028; /* Same color as hover */
+  transform: scale(1); /* Remove scaling effect when clicked */
+}
+
+/* Focus state (when button is focused) */
+.button:focus {
+  outline: none; /* Remove default blue outline */
+  box-shadow: none; /* Remove default box shadow */
+  background-color: #055028; /* Same color as hover/focus */
+}
+
+/* To prevent the blue border or background color */
+button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #055028 !important; /* Make sure it's the same as hover/focus */
+}
+
+/* Ensuring the styles are not overridden */
+button:focus-visible {
+  outline: none !important; /* Ensure no blue outline even on visible focus */
+}
+
+
+/* Updated button styles */
+.dropdownToggle {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: #06402B; /* Dark green background for the button */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect */
+.dropdownToggle:hover {
+  background-color: #055028; /* Slightly darker green on hover */
+  transform: scale(1.05); /* Optional: Slightly enlarge the button on hover */
+}
+
+.dropdownMenu {
+  width: 100%;
+  max-height: 0; /* Initially collapsed */
+  overflow: hidden; /* Hide overflow */
+  background-color: #06402B; /* Dark green background for dropdown */
+  transition: max-height 0.3s ease-out; /* Smooth transition for expansion */
+  padding: 0; /* Ensure there's no extra space */
+}
+
+.dropdownMenu.open {
+  max-height: 500px; /* Set to a large enough value to reveal all items */
+}
+
+.dropdownItem {
+  display: block; /* Ensure items are displayed vertically */
+  padding: 0.75rem;
+  background-color: #06402B; /* Dark green background for dropdown items */
+  color: #fff;
+  border: none;
+  width: 100%; /* Ensure the button takes the full width */
+  text-align: left; /* Align text to the left */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #055028 ; /* Slightly darker green on hover */
+  color: #fff;
+  transform: translateX(10px); /* Optional: Adds a slight slide effect on hover */
+}
+
+/* Targeting the Body inside the Offcanvas specifically */
+.offcanvas-body {
+  background-color: #06402B !important; /* Ensures the background color is applied */
+}
+
+
+.employeeInfo {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f4f4f4; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.employeeInfo h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333; /* Darker text for name */
+  margin-bottom: 0.5rem;
+}
+
+.employeeInfo h6 {
+  font-size: 0.9rem;
+  color: #888; /* Light text color for designation */
+  letter-spacing: 0.5px; /* Slight space between letters */
+}
+

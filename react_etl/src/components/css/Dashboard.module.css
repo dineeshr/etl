@@ -1,0 +1,173 @@
+/* Dashboard.module.css */
+
+/* Container styles */
+.container {
+  margin-top: 5rem;
+  padding: 1rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 2px solid #06402B;
+}
+
+/* Content section styles */
+.content {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #06402B;
+}
+
+/* Title styles */
+.title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #343a40;
+}
+
+/* Form section styles */
+.form {
+  margin-bottom: 1.5rem;
+}
+
+/* Flex row for form fields */
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Each form field style */
+.formField {
+  flex: 1 1 30%;
+}
+
+/* Label styling */
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* Dropdown styling (modified) */
+.dropdown {
+  padding: 0.75rem;
+  width: 200px; /* Full width */
+  max-width: 1000px; /* Increased max-width to make it wider */
+  border: 2px solid #06402B;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #495057;
+  background-color: #fff;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  height: 3rem;
+  line-height: 1.5;
+}
+
+/* Button row styling */
+.buttonRow {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* General button styling */
+.button {
+  padding: 0.75rem;
+  width: 100%; /* Full width */
+  max-width: 700px; /* Increased max-width to make it wider */
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Filter button */
+.filterBtn {
+  background-color: #06402B;
+  color: #fff;
+  border: 2px solid #06402B;
+}
+
+.filterBtn:hover {
+  background-color: #2d6a4f;
+  border-color: #2d6a4f;
+}
+
+/* Reset button */
+.resetBtn {
+  background-color: #6c757d;
+  color: #fff;
+  border: 2px solid #6c757d;
+}
+
+.resetBtn:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+/* Pie chart button */
+.pieChartBtn {
+  width: 150px;
+  padding: 0.75rem;
+  background-color: #06402B;
+  color: #fff;
+  border: 2px solid #06402B;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.pieChartBtn:hover {
+  background-color: #2d6a4f;
+  border-color: #2d6a4f;
+}
+
+/* Table container styling */
+.tableContainer {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: #495057;
+}
+
+/* Table header styles */
+.tableHeader {
+  background-color: #f1f1f1;
+  text-align: left;
+  color: white;
+}
+
+/* Table cell styling */
+.tableCell {
+  padding: 0.75rem;
+  border: 1px solid #06402B;
+  text-align: center;
+  font-weight: 600;
+  color: black;
+}
+
+/* Row styles */
+.tableRow {
+  cursor: default;
+  transition: background-color 0.3s ease;
+}
+
+/* Row style for failed reports */
+.tableRowFailed {
+  background-color: #f8d7da;
+  cursor: pointer;
+}
+
+.tableRowPassed {
+  background-color: #649d88;
+  cursor: pointer;
+}

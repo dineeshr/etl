@@ -1,0 +1,147 @@
+/* Login.module.css */
+
+/* Add border around the page */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Centered container styles */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  border: 10px solid #06402B; /* Border color */
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 1s ease-out forwards; /* Intro transition */
+}
+
+/* Card styles */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 400px;
+  background-color: #D3D3D3;
+  text-align: center;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 1.5s ease-out forwards 0.5s; /* Intro transition with delay */
+}
+
+/* Logo styles */
+.logoContainer {
+  margin-bottom: 1px; /* Reduced space between logo and header */
+}
+
+.logo {
+  width: 250px; /* Increased width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 5px; /* Reduced space between logo and header */
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 1.5s ease-out forwards 1s; /* Fade-in with delay */
+}
+
+/* Header text styles */
+.header {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 1s ease-out forwards 1.5s; /* Fade-in with delay */
+}
+
+/* Sub-header text styles */
+.subHeader {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin-bottom: 30px;
+  text-align: center;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 1s ease-out forwards 2s; /* Fade-in with delay */
+}
+
+/* Form label and input field styles */
+.formField {
+  margin-bottom: 1rem; /* Reduced margin between fields */
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Input field styles */
+.formInput {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem; /* Reduced margin after input fields */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition on focus */
+}
+
+/* Button styles */
+.formButton {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background-color: #06402B;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth background and scale on hover */
+}
+
+/* Button hover effect */
+.formButton:hover {
+  background-color: #052d1a; /* Darker green on hover */
+  transform: scale(1.05); /* Slight enlarge effect on hover */
+}
+
+/* Button active effect (when clicked) */
+.formButton:active {
+  background-color: #04401f; /* Even darker green when clicked */
+  transform: scale(0.98); /* Shrink effect on click */
+}
+
+/* Alert box styles */
+.alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Fade in/out alert box */
+}
+
+.alert.show {
+  opacity: 1; /* Show alert */
+}
+
+/* Text alignment and margin helpers */
+.textCenter {
+  text-align: center;
+}
+
+.mt3 {
+  margin-top: 1rem;
+}
+
+/* Fade-in animation for intro transition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Start from slightly below */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* End at normal position */
+  }
+}

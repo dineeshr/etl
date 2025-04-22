@@ -23,7 +23,7 @@ public class ReportingDashboardPoller {
     private EmailFetchRepository employeeFetchRepository;  // Use EmployeeRepository
 
     // Poll the database every minute
-    @Scheduled(fixedRate = 1000)  // Poll every second for testing; adjust for production
+    @Scheduled(fixedRate = 120000)  // Poll every second for testing; adjust for production
     public void pollForFailedRecords() {
         System.out.println("EmployeeFetchRepository: " + employeeFetchRepository);  // Debug log
 

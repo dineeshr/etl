@@ -1,0 +1,51 @@
+/* LogoutConfirmation.module.css */
+.modalHeader {
+    background-color: #06402B; /* Dark green background */
+    color: white; /* White text */
+  }
+  
+  .modalTitle {
+    font-weight: bold;
+  }
+  
+  .modalBody {
+    font-size: 1rem;
+    color: #495057; /* Text color */
+  }
+  
+  .modalFooter {
+    display: flex;
+    justify-content: space-between; /* Ensure the buttons are spaced out */
+  }
+  
+  .cancelButton {
+    background-color: #dc3545; /* Red color for cancel button */
+    color: white;
+    border: none;
+  }
+  
+  .cancelButton:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  
+  .confirmButton {
+    background-color: #06402B; /* Green color for confirm button */
+    color: white;
+    border: none;
+  }
+  
+  .confirmButton:hover {
+    background-color: #052d1a; /* Darker green on hover */
+  }
+  
+  /* Additional styles for Modal */
+  .modalContent {
+    background-color: #f8f9fa; /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 1rem;
+  }
+  
+  .buttonSpacing {
+    margin-right: 0.5rem; /* Small space between the buttons */
+  }
+  

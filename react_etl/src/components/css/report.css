@@ -1,0 +1,25 @@
+/* Ensure body takes full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 5px solid #06402B;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-padding {
+    text-align: center;
+}
+
+.col-form-label {
+    text-align: right;
+}
+
+select {
+    appearance: auto !important;
+}
+
+.footer-report-button {
+    padding-left: 382px !important;
+}

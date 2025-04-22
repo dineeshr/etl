@@ -33,17 +33,20 @@ public class EmployeeManagementService {
 
     // Delete an employee by ID
     public Employee deleteEmployee(Long empId) {
-        Optional<Employee> employee = employeeRepository.findById(empId);  // Check if employee exists
-        if (employee.isPresent()) {
-            employeeRepository.delete(employee.get());  // Delete the employee if found
-            return employee.get();  // Return the deleted employee
-        } else {
-            return null;  // Return null if employee is not found
+        // Check if the employee exists first
+        Optional<Employee> employeeOptional = employeeRepository.findById(empId);
+        if (employeeOptional.isPresent()) {
+            Employee employee = employeeOptional.get();
+            
+            // Delete the employee
+            employeeRepository.deleteById(empId);
+            
+            // Return the deleted employee for response in the controller
+            return employee;
         }
+        // Return null if employee not found
+        return null;
     }
-    
-    
-    
     
 
     // Update an existing employee by ID
@@ -75,7 +78,7 @@ public class EmployeeManagementService {
     }
 
     // Fetch employees by designation (e.g., "manager") to show in the dropdown
-    public List<Employee> getEngineers() {
-        return employeeRepository.findByEmpDesignation("engineer"); // Fetch only engineers
+    public List<Employee> getEmployeesByDesignation(String designation) {
+        return employeeRepository.findByEmpDesignation(designation); // Fetch only engineers
     }
 }

@@ -40,11 +40,15 @@ public class EmployeeManagementController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found.");  // Return 404 if employee is not found
         }
     }
-    
-        // Update an existing employee by ID
+
+    // Update an existing employee by ID
     @PutMapping("/{empId}")
     public Employee updateEmployee(@PathVariable Long empId, @RequestBody Employee updatedEmployee) {
         return employeeService.updateEmployee(empId, updatedEmployee);
     }
 
+    @GetMapping("/{designation}")
+    public List<Employee> getEmployeesByDesignation(@PathVariable String designation) {
+        return employeeService.getEmployeesByDesignation(designation);
+    }
 }

@@ -1,0 +1,86 @@
+/* Ensure the input field and AI button are aligned */
+.input-with-ai {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Space between input and button */
+    width: 100%;
+}
+
+/* Style for the Reason of Failure input */
+.input-with-ai textarea {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* AI Assistant button */
+.ai-assistant-btn {
+    background: #007bff;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    transition: background 0.3s ease;
+}
+
+/* Hover effect */
+.ai-assistant-btn:hover {
+    background: #0056b3;
+}
+
+/* Popup Styling */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.popup-content h3 {
+    margin-bottom: 15px;
+}
+
+.popup-content p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.popup-content .btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content .btn-secondary:hover {
+    background: #545b62;
+}

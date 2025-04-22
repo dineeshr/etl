@@ -1,0 +1,171 @@
+/* ManageEmployees.module.css */
+
+.container {
+  margin-top: 5rem;
+  padding: 1rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 2px solid #06402B;
+}
+  
+  .title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #343a40;
+  }
+  
+  .textStart {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  
+  .modalHeader {
+    background-color: #06402B;
+    color: #fff;
+  }
+  
+  .modalTitle {
+    font-weight: bold;
+  }
+  
+  .formGroup {
+    margin-bottom: 1rem;
+    width : 300px;
+  }
+  
+  .formControl {
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .formLabel {
+    font-weight: 600;
+  }
+  
+/* .buttonPrimary Default Styling */
+.buttonPrimary {
+  background-color: #06402B; /* Dark green background */
+  color: #fff; /* White text */
+  border: 2px solid #06402B; /* Dark green border */
+  padding: 0.75rem 1.5rem; /* Padding inside the button */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+}
+
+/* Hover Effect */
+.buttonPrimary:hover {
+  background-color: #055028; /* Slightly darker green on hover */
+  border-color: #055028; /* Change border color on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Active/Clicked Effect */
+.buttonPrimary:active {
+  background-color: #04401f; /* Even darker green when clicked */
+  border-color: #04401f; /* Change border color on active state */
+  transform: scale(0.98); /* Shrink the button slightly when clicked */
+}
+
+/* Focus Effect (for accessibility) */
+.buttonPrimary:focus {
+  outline: none; /* Remove outline */
+  box-shadow: 0 0 0 3px rgba(6, 64, 43, 0.4); /* Optional: Add a focus outline with subtle shadow */
+}
+
+    
+  .tableContainer {
+    overflow-x: auto;
+    margin-top: 2rem;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tableHeader {
+    background-color: #06402B;
+    color: #fff;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .tableCell {
+    padding: 1rem;
+    border: 1px solid #06402B;
+    text-align: center;
+    font-weight: 500;
+    color: #495057;
+  }
+  
+  .tableRow {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tableRow:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .tableRowEven {
+    background-color: #f9f9f9;
+  }
+  
+  .tableRowFailed {
+    background-color: #f8d7da;
+  }
+  
+  .tableActions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .tableActions button {
+    margin-left: 0.5rem;
+  }
+  
+  .tableFooter {
+    font-weight: bold;
+    text-align: right;
+    padding: 1rem;
+    background-color: #06402B;
+    color: #fff;
+  }
+  
+  .tableHeader th,
+  .tableCell {
+    padding: 1rem;
+    border: 1px solid #06402B;
+  }
+  
+  .tableRow td {
+    padding: 1rem;
+    border: 1px solid #06402B;
+    text-align: center;
+  }
+  
+  
+  .tableRow td button {
+    margin-right: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .tableRow td button:hover {
+    opacity: 0.9;
+  }
+  
+  .tableRow td button:focus {
+    outline: none;
+  }
+  

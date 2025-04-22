@@ -1,0 +1,107 @@
+/* LeaveRequests.module.css */
+
+/* Container for the whole page */
+.container {
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  border: 5px solid #06402B; /* Add border to the entire page */
+  border-radius: 8px; /* Optional: to give rounded corners */
+  background-color: #f9f9f9; /* Optional: to set a background color inside the border */
+}
+
+/* Title styling */
+h2 {
+  font-size: 2rem;
+  color: #06402B;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Message styling */
+.message {
+  font-size: 1.25rem;
+  color: #777;
+  text-align: center;
+}
+
+/* Button Styling */
+.buttonContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.exportButton {
+  background-color: #06402B;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.exportButton:hover {
+  background-color: #00321d;
+}
+
+/* Table Styling */
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border: 2px solid #06402B; /* Add border to the entire table */
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+th, td {
+  padding: 1rem;
+  border: 1px solid #06402B; /* Border for each cell */
+  text-align: center;
+}
+
+th {
+  background-color: #06402B;
+  color: #fff;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Action Buttons */
+.actionButtonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.actionButton {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.approveButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.approveButton:hover {
+  background-color: #45a049;
+}
+
+.rejectButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.rejectButton:hover {
+  background-color: #d32f2f;
+}

@@ -1,6 +1,6 @@
 package com.etl.etl.controller.ReportingDashboardDisplay;
 
-import com.etl.etl.Projection.ReportingDashboardProjection;
+import com.etl.etl.entities.Reporting_DB.ReportingDashboard;
 import com.etl.etl.service.ReportingDashboardDisplay.ReportingDashboardDisplay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,32 +9,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 public class ReportingDashboardController {
 
     @Autowired
     private ReportingDashboardDisplay service;
 
-    // Fetch all reports
+    // Fetch all reports (without projection)
     @GetMapping(value = "/reports/dashboard", produces = "application/json")
     @ResponseBody
-    public List<ReportingDashboardProjection> getReports() {
-        // Fetch all reports using the service
+    public List<ReportingDashboard> getReports() {
+        // Fetch all reports using the service (now returns ReportingDashboard)
         return service.getAllReports();
     }
 
-    // Fetch filtered reports
+    // Fetch filtered reports (without projection)
     @GetMapping(value = "/reports/dashboard/filter", produces = "application/json")
     @ResponseBody
-    public List<ReportingDashboardProjection> getFilteredReports(
+    public List<ReportingDashboard> getFilteredReports(
             @RequestParam String env,
             @RequestParam String application,
-            @RequestParam String currentState) {  // Changed initState to currentState
-        // Fetch filtered reports using the service based on currentState
+            @RequestParam String currentState) {
+        // Fetch filtered reports using the service based on currentState (returns ReportingDashboard)
         return service.getFilteredReports(env, application, currentState);
     }
-    
 }
